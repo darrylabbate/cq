@@ -12,14 +12,11 @@ import           GHC.Generics
 import           Network.Wreq
 
 priceURL :: String
-priceURL = "https://min-api.cryptocompare.com/data/price"
+priceURL = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
 
 fetchSinglePrice :: IO ()
 fetchSinglePrice = do
   let opts = defaults
-           & param "fsym" .~ ["BTC"]
-           & param "tsyms" .~ ["USD"]
-           & param "extraParams" .~ ["cq"]
   r <- getWith opts priceURL
   putStrLn $ "BTC: $" ++ show
     ( r ^?! responseBody
