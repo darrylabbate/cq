@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module CryptoCompare where
+module CryptoCompare (fetchSinglePrice) where
 
 import           Control.Lens
 import           Data.Aeson
