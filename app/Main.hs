@@ -6,7 +6,7 @@ import           CryptoCompare      (fetchSinglePrice)
 import           Data.Char          (toUpper)
 import           System.Environment (getArgs)
 
-cqVersion = "0.1"
+cqVersion = "0.1.1"
 
 main :: IO ()
 main = getArgs >>= parse
