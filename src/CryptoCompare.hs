@@ -1,4 +1,3 @@
-{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module CryptoCompare (fetchSinglePrice) where
@@ -6,19 +5,16 @@ module CryptoCompare (fetchSinglePrice) where
 import           Control.Lens
 import           Data.Aeson
 import           Data.Aeson.Lens
-import qualified Data.ByteString.Lazy as BL
-import           Data.Text
-import           GHC.Generics
 import           Network.Wreq
 
-priceURL :: String
-priceURL = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
+priceURL :: String -> String
+priceURL x = "https://min-api.cryptocompare.com/data/price?fsym=" ++ x ++ "&tsyms=USD"
 
-fetchSinglePrice :: IO ()
-fetchSinglePrice = do
+fetchSinglePrice :: String -> IO ()
+fetchSinglePrice x = do
   let opts = defaults
-  r <- getWith opts priceURL
-  putStrLn $ "BTC: $" ++ show
+  r <- getWith opts $ priceURL x
+  putStrLn $ x ++ ": $" ++ show
     ( r ^?! responseBody
     . key "USD"
     . _Number

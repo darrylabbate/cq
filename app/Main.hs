@@ -3,7 +3,7 @@
 module Main where
 
 import           CryptoCompare      (fetchSinglePrice)
-import qualified Data.Text.IO       as T (putStrLn)
+import           Data.Char          (toUpper)
 import           System.Environment (getArgs)
 
 version = "0.1"
@@ -11,10 +11,8 @@ version = "0.1"
 main :: IO ()
 main = getArgs >>= parse
 
-parse ["-v"]        = T.putStrLn version
-parse ["--version"] = T.putStrLn version
-parse ["version"]   = T.putStrLn version
-parse _             = returnPrice
-
-returnPrice :: IO ()
-returnPrice = fetchSinglePrice
+parse ["-v"]        = putStrLn version
+parse ["--version"] = putStrLn version
+parse ["version"]   = putStrLn version
+parse [x]           = fetchSinglePrice $ map toUpper x
+parse []            = fetchSinglePrice "BTC"
